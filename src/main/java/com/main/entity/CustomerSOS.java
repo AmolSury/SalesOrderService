@@ -19,6 +19,9 @@ public class CustomerSOS implements Serializable{
 
 	@Id
 	@GeneratedValue
+	@Column(name="id")
+	private Long id;
+	
 	@Column(name="cust_id")
 	private Long custId;
 
@@ -30,6 +33,14 @@ public class CustomerSOS implements Serializable{
 	
 	@Column(name="cust_email")
 	private String custEmail;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getCustId() {
 		return custId;
@@ -71,6 +82,7 @@ public class CustomerSOS implements Serializable{
 		result = prime * result + ((custFirstName == null) ? 0 : custFirstName.hashCode());
 		result = prime * result + ((custId == null) ? 0 : custId.hashCode());
 		result = prime * result + ((custLastName == null) ? 0 : custLastName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -102,6 +114,11 @@ public class CustomerSOS implements Serializable{
 			if (other.custLastName != null)
 				return false;
 		} else if (!custLastName.equals(other.custLastName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
