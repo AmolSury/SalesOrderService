@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="Customer_SOS")
@@ -22,6 +24,7 @@ public class CustomerSOS implements Serializable{
 	@Column(name="id")
 	private Long id;
 	
+	@NotBlank
 	@Column(name="cust_id")
 	private Long custId;
 
@@ -31,6 +34,7 @@ public class CustomerSOS implements Serializable{
 	@Column(name="cust_last_name")
 	private String custLastName;
 	
+	@NotBlank
 	@Column(name="cust_email")
 	private String custEmail;
 
