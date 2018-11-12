@@ -17,11 +17,14 @@ public class SalesOrderServiceImpl {
 	private SalesOrderCustomerRepository salesOrderCustomerRepository;
 	
 	public Long createSalesOrder(SalesOrder salesOrder) {
-		//TODO
+		//TODO validate customer by verifying the table “customer_sos” with cust_id
 		//Optional<CustomerSOS> customerSOS = getSalesOrderCustomerRepository().findById(salesOrder.getCustId());
 		if(getSalesOrderCustomerRepository().findById(salesOrder.getCustId()).isPresent()) {
 			
 		}
+		//TODO validate items by calling item service with item name
+		
+		
 		SalesOrder salesOrderStatus = getCreateOrderRepository().saveAndFlush(salesOrder);
 		return salesOrderStatus.getId();
 	}
