@@ -37,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	@ExceptionHandler(ProductNotValidException.class)
-	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+	@ResponseStatus(value=HttpStatus.BAD_REQUEST)
     @ResponseBody
 	public final ResponseEntity<ExceptionResponse> handleProductNotValidException(ProductNotValidException ex,
 			WebRequest request) {

@@ -1,15 +1,19 @@
 package com.main.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.main.entity.CustomerSOS;
 import com.main.entity.SalesOrder;
 import com.main.repository.CreateOrderRepository;
 import com.main.repository.SalesOrderCustomerRepository;
@@ -25,31 +29,27 @@ public class SalesOrderServiceImpl {
 	@Value("${itemservices.chkname}")
 	String resourceUrl;
 
+	@SuppressWarnings("unchecked")
 	public Long createSalesOrder(SalesOrder salesOrder) {
+		
 		// TODO validate customer by verifying the table “customer_sos” with cust_id
-		// Optional<CustomerSOS> customerSOS =
-		// getSalesOrderCustomerRepository().findById(salesOrder.getCustId());
-		if (getSalesOrderCustomerRepository().findById(salesOrder.getCustId()).isPresent()) {
-
-		}
+		Optional<List<CustomerSOS>> customerSOS = getSalesOrderCustomerRepository().findByCustId(salesOrder.getCustId());
+	
 		// validate items by calling item service with item name
 		SalesOrder salesOrderStatus = null;
 		String Url = resourceUrl + salesOrder.getOrderLineItem().get(0).getItemName();
 		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<Boolean> entity = new HttpEntity<Boolean>(headers);
+		//Item Service Call
+		Optional<Boolean> isValid = restTemplate.exchange(Url, HttpMethod.GET, entity, Optional.class).getBody();
 		
-		ResponseEntity<Optional> response = restTemplate.getForEntity(Url , Optional.class);
-		
-		
-		//Optional<Boolean> response = restTemplate.getForObject(Url,  Optional.class);
-		if(response.getBody().get().equals(Boolean.TRUE)) {
+		if (customerSOS.isPresent() && isValid.get().equals(Boolean.TRUE)) {
 			salesOrderStatus = getCreateOrderRepository().saveAndFlush(salesOrder);
-		}else {
-			System.out.println("------------------in else");
-			throw new ProductNotValidException("Product name is not valid");
+		} else {
+			throw new ProductNotValidException("Product name otherwise customer Id is not valid");
 		}
-		
-		System.out.println(response.getBody().get().equals(Boolean.TRUE));
-		
 		return salesOrderStatus.getId();
 	}
 

@@ -24,7 +24,6 @@ public class CustomerSOS implements Serializable{
 	@Column(name="id")
 	private Long id;
 	
-	@NotBlank
 	@Column(name="cust_id")
 	private Long custId;
 
