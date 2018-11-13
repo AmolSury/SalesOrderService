@@ -2,6 +2,7 @@ package com.main.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,7 +50,7 @@ public class SalesOrder implements Serializable{
 	//@OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "order_id")
-	private Set<OrderLineItem> orderLineItem;
+	private List<OrderLineItem> orderLineItem;
 
 	public Long getId() {
 		return id;
@@ -91,11 +92,11 @@ public class SalesOrder implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-	public Set<OrderLineItem> getOrderLineItem() {
+	public List<OrderLineItem> getOrderLineItem() {
 		return orderLineItem;
 	}
 
-	public void setOrderLineItem(Set<OrderLineItem> orderLineItem) {
+	public void setOrderLineItem(List<OrderLineItem> orderLineItem) {
 		this.orderLineItem = orderLineItem;
 	}
 

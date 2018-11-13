@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.main.util.CustomerNotFoundException;
 import com.main.util.ExceptionResponse;
+import com.main.util.ProductNotValidException;
 
 
 @RestControllerAdvice
@@ -33,6 +34,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
 				request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(ProductNotValidException.class)
+	@ResponseStatus(value=HttpStatus.NOT_FOUND)
+    @ResponseBody
+	public final ResponseEntity<ExceptionResponse> handleProductNotValidException(ProductNotValidException ex,
+			WebRequest request) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 
 }
