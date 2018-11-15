@@ -18,6 +18,7 @@ import com.main.entity.SalesOrder;
 import com.main.repository.CreateOrderRepository;
 import com.main.repository.SalesOrderCustomerRepository;
 import com.main.util.ProductNotValidException;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 public class SalesOrderServiceImpl {
@@ -33,6 +34,7 @@ public class SalesOrderServiceImpl {
 	RestTemplate restTemplate;
 
 	@SuppressWarnings("unchecked")
+	@HystrixCommand(fallbackMethod = "callItemServiceAndGetDataFallback")
 	public Long createSalesOrder(SalesOrder salesOrder) {
 
 		// TODO validate customer by verifying the table “customer_sos” with
@@ -57,6 +59,12 @@ public class SalesOrderServiceImpl {
 		}
 		return salesOrderStatus.getId();
 	}
+	
+	@SuppressWarnings("unused")
+    private Long callItemServiceAndGetDataFallback(SalesOrder salesOrder) {
+        System.out.println("Item Service is down!!! fallback route enabled...");
+        return new Long(1);
+    }
 
 	public List<SalesOrder> getSalesOrder() {
 		return (List<SalesOrder>) getCreateOrderRepository().findAll();
