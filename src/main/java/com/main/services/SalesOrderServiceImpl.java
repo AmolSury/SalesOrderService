@@ -29,22 +29,27 @@ public class SalesOrderServiceImpl {
 	@Value("${itemservices.chkname}")
 	String resourceUrl;
 
+	@Autowired
+	RestTemplate restTemplate;
+
 	@SuppressWarnings("unchecked")
 	public Long createSalesOrder(SalesOrder salesOrder) {
-		
-		// TODO validate customer by verifying the table “customer_sos” with cust_id
-		Optional<List<CustomerSOS>> customerSOS = getSalesOrderCustomerRepository().findByCustId(salesOrder.getCustId());
-	
+
+		// TODO validate customer by verifying the table “customer_sos” with
+		// cust_id
+		Optional<List<CustomerSOS>> customerSOS = getSalesOrderCustomerRepository()
+				.findByCustId(salesOrder.getCustId());
+
 		// validate items by calling item service with item name
 		SalesOrder salesOrderStatus = null;
 		String Url = resourceUrl + salesOrder.getOrderLineItem().get(0).getItemName();
-		RestTemplate restTemplate = new RestTemplate();
+		// RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Boolean> entity = new HttpEntity<Boolean>(headers);
-		//Item Service Call
+		// Item Service Call
 		Optional<Boolean> isValid = restTemplate.exchange(Url, HttpMethod.GET, entity, Optional.class).getBody();
-		
+
 		if (customerSOS.isPresent() && isValid.get().equals(Boolean.TRUE)) {
 			salesOrderStatus = getCreateOrderRepository().saveAndFlush(salesOrder);
 		} else {
