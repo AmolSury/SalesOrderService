@@ -34,18 +34,16 @@ public class SalesOrderServiceImpl {
 	RestTemplate restTemplate;
 
 	@SuppressWarnings("unchecked")
-	@HystrixCommand(fallbackMethod = "callItemServiceAndGetDataFallback")
+	@HystrixCommand(fallbackMethod = "callItemServiceAndGetDataFallback") //Using Hystrix for Circuit Breaker
 	public Long createSalesOrder(SalesOrder salesOrder) {
 
-		// TODO validate customer by verifying the table “customer_sos” with
-		// cust_id
+		//validate customer by verifying the table “customer_sos” with cust_id
 		Optional<List<CustomerSOS>> customerSOS = getSalesOrderCustomerRepository()
 				.findByCustId(salesOrder.getCustId());
 
 		// validate items by calling item service with item name
 		SalesOrder salesOrderStatus = null;
 		String Url = resourceUrl + salesOrder.getOrderLineItem().get(0).getItemName();
-		// RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Boolean> entity = new HttpEntity<Boolean>(headers);

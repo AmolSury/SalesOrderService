@@ -28,14 +28,24 @@ public class CustomerSOS implements Serializable{
 	private Long custId;
 
 	@Column(name="cust_first_name")
-	private String custFirstName;
+	private String firstName;
 	
 	@Column(name="cust_last_name")
-	private String custLastName;
+	private String lastName;
 	
 	@NotBlank
 	@Column(name="cust_email")
-	private String custEmail;
+	private String emailId;
+	
+	CustomerSOS(){}
+
+	public CustomerSOS(Long custId, String firstName, String lastName, @NotBlank String emailId) {
+		super();
+		this.custId = custId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailId = emailId;
+	}
 
 	public Long getId() {
 		return id;
@@ -53,39 +63,39 @@ public class CustomerSOS implements Serializable{
 		this.custId = custId;
 	}
 
-	public String getCustFirstName() {
-		return custFirstName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setCustFirstName(String custFirstName) {
-		this.custFirstName = custFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getCustLastName() {
-		return custLastName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setCustLastName(String custLastName) {
-		this.custLastName = custLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getCustEmail() {
-		return custEmail;
+	public String getEmailId() {
+		return emailId;
 	}
 
-	public void setCustEmail(String custEmail) {
-		this.custEmail = custEmail;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((custEmail == null) ? 0 : custEmail.hashCode());
-		result = prime * result + ((custFirstName == null) ? 0 : custFirstName.hashCode());
 		result = prime * result + ((custId == null) ? 0 : custId.hashCode());
-		result = prime * result + ((custLastName == null) ? 0 : custLastName.hashCode());
+		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		return result;
 	}
 
@@ -98,30 +108,30 @@ public class CustomerSOS implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		CustomerSOS other = (CustomerSOS) obj;
-		if (custEmail == null) {
-			if (other.custEmail != null)
-				return false;
-		} else if (!custEmail.equals(other.custEmail))
-			return false;
-		if (custFirstName == null) {
-			if (other.custFirstName != null)
-				return false;
-		} else if (!custFirstName.equals(other.custFirstName))
-			return false;
 		if (custId == null) {
 			if (other.custId != null)
 				return false;
 		} else if (!custId.equals(other.custId))
 			return false;
-		if (custLastName == null) {
-			if (other.custLastName != null)
+		if (emailId == null) {
+			if (other.emailId != null)
 				return false;
-		} else if (!custLastName.equals(other.custLastName))
+		} else if (!emailId.equals(other.emailId))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
 			return false;
 		return true;
 	}
