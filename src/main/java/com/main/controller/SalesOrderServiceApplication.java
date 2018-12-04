@@ -8,6 +8,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -15,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.main.util.RibbonConfiguration;
 
-
+@EnableBinding(Sink.class)
 @EnableCircuitBreaker
 @EnableHystrixDashboard
 @SpringBootApplication
@@ -32,6 +34,11 @@ public class SalesOrderServiceApplication {
         return new RestTemplate();
     }
 
+	/*@StreamListener(target = Sink.INPUT)
+	public void processRegisterEmployees(String employee) {
+		System.out.println("Employees Registered by Client " + employee);
+	}*/
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SalesOrderServiceApplication.class, args);
 	}

@@ -61,7 +61,7 @@ public class SalesOrderServiceImpl {
 	@SuppressWarnings("unused")
     private Long callItemServiceAndGetDataFallback(SalesOrder salesOrder) {
         System.out.println("Item Service is down!!! fallback route enabled...");
-        return new Long(1);
+        return new Long(0);
     }
 
 	public List<SalesOrder> getSalesOrder() {
