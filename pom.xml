@@ -66,10 +66,10 @@
 		</dependency>
 		
 		<!-- Load Balancing for RabbitMQ -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
-		</dependency>
+		</dependency> -->
 		
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
