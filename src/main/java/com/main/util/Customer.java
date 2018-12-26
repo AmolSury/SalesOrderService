@@ -3,6 +3,8 @@ package com.main.util;
 public class Customer {
 
 	private Long id;
+	
+	private Long CustId;
 
 	private String firstName;
 
@@ -22,6 +24,14 @@ public class Customer {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getCustId() {
+		return CustId;
+	}
+
+	public void setCustId(Long custId) {
+		CustId = custId;
 	}
 
 	public String getFirstName() {
@@ -58,8 +68,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
-				+ ", messageStatus=" + messageStatus + "]";
+		return "Customer [id=" + id + ", CustId=" + CustId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", emailId=" + emailId + ", messageStatus=" + messageStatus + "]";
 	}
 
 }

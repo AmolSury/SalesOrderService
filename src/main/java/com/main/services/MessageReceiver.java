@@ -33,7 +33,7 @@ public class MessageReceiver {
 		//Payload to POJO
 		ObjectMapper mapper = new ObjectMapper();
 		Customer customer = mapper.readValue(payload, Customer.class);
-		System.out.println("-=-=-=-=-=-=-=-=-"+customer.toString());
+		System.out.println("-=-=-=-=-=-=-=-=-"+customer.getEmailId());
 		
 	}
 	
