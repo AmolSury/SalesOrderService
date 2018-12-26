@@ -9,6 +9,8 @@ public class Customer {
 	private String lastName;
 
 	private String emailId;
+	
+	private String messageStatus;
 
 	public Customer() {
 
@@ -44,6 +46,20 @@ public class Customer {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+
+	public String getMessageStatus() {
+		return messageStatus;
+	}
+
+	public void setMessageStatus(String messageStatus) {
+		this.messageStatus = messageStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId=" + emailId
+				+ ", messageStatus=" + messageStatus + "]";
 	}
 
 }

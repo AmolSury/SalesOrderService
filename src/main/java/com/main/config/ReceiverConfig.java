@@ -13,7 +13,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 
-import com.main.services.Receiver;
+import com.main.services.MessageReceiver;
 
 public class ReceiverConfig {
 
@@ -53,8 +53,8 @@ public class ReceiverConfig {
 	  }
 
 	  @Bean
-	  public Receiver receiver() {
-	    return new Receiver();
+	  public MessageReceiver receiver() {
+	    return new MessageReceiver();
 	  }
 	  
 }
