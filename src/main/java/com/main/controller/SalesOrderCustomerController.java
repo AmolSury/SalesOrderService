@@ -1,13 +1,9 @@
 package com.main.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +16,7 @@ public class SalesOrderCustomerController {
 
 	private SalesOrderCustomerServiceImpl SalesOrderCustomerServiceImpl;
 
-	@GetMapping(value = "/{id}/create/{msg}")
+	/*@GetMapping(value = "/{id}/create/{msg}")
 	public ResponseEntity<Long> createCustomer(@PathVariable("id") Long id, @PathVariable("msg") String msg) {
 		if (Optional.ofNullable(msg).get().equals("CustomerCreated")) {
 			Long custId = getSalesOrderCustomerServiceImpl().createCustomerSOS(id);
@@ -28,7 +24,7 @@ public class SalesOrderCustomerController {
 		} else {
 			return new ResponseEntity<Long>(id, HttpStatus.BAD_REQUEST);
 		}
-	}
+	}*/
 
 	@GetMapping(value = "/get-all")
 	public List<CustomerSOS> getAllCustomerSOS() {

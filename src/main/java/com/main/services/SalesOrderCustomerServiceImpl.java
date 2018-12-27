@@ -27,14 +27,14 @@ public class SalesOrderCustomerServiceImpl {
 	@Autowired
 	RestTemplate restTemplate;
 
-	public Long createCustomerSOS(Long id) {
-		String Url = custServiceUrl + id;
+	public Long createCustomerSOS(Customer cust) {
+		String Url = custServiceUrl + cust.getCustId();
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Customer> entity = new HttpEntity<Customer>(headers);
 		// Customer Service Call
 		Customer customer = restTemplate.exchange(Url, HttpMethod.GET, entity, Customer.class).getBody();
-		CustomerSOS customerSOS = new CustomerSOS(customer.getId(), customer.getFirstName(), customer.getLastName(),
+		CustomerSOS customerSOS = new CustomerSOS(customer.getCustId(), customer.getFirstName(), customer.getLastName(),
 				customer.getEmailId());
 		CustomerSOS customerSOSStatus = getSalesOrderCustomerRepository().saveAndFlush(customerSOS);
 		return customerSOSStatus.getId();

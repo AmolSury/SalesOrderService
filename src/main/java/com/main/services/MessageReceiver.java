@@ -5,6 +5,7 @@ import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,10 @@ import com.main.util.Customer;
 public class MessageReceiver {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MessageReceiver.class);
-
+	
+	@Autowired
+	private SalesOrderCustomerServiceImpl salesOrderCustServiceImpl;
+	
 	
 	private CountDownLatch latch = new CountDownLatch(1);
 
@@ -33,9 +37,8 @@ public class MessageReceiver {
 		//Payload to POJO
 		ObjectMapper mapper = new ObjectMapper();
 		Customer customer = mapper.readValue(payload, Customer.class);
-		System.out.println("-=-=-=-=-=-=-=-=-"+customer.getEmailId());
+		salesOrderCustServiceImpl.createCustomerSOS(customer);
+		System.out.println("-=-=-=-=-=-=-=-=-"+customer.getCustId());
 		
 	}
-	
-	
 }

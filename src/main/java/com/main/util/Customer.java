@@ -1,8 +1,6 @@
 package com.main.util;
 
 public class Customer {
-
-	private Long id;
 	
 	private Long CustId;
 
@@ -16,14 +14,6 @@ public class Customer {
 
 	public Customer() {
 
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Long getCustId() {
@@ -68,8 +58,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", CustId=" + CustId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", emailId=" + emailId + ", messageStatus=" + messageStatus + "]";
+		return "Customer [CustId=" + CustId + ", firstName=" + firstName + ", lastName=" + lastName + ", emailId="
+				+ emailId + ", messageStatus=" + messageStatus + "]";
 	}
-
 }
