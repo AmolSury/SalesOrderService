@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.main.controller.RemoteCallCustomerService;
 import com.main.entity.CustomerSOS;
 import com.main.repository.SalesOrderCustomerRepository;
 import com.main.util.Customer;
@@ -24,8 +25,11 @@ public class SalesOrderCustomerServiceImpl {
 	@Value("${customer.service.getcust}")
 	String custServiceUrl;
 
+	/*@Autowired
+	RestTemplate restTemplate;*/
+	
 	@Autowired
-	RestTemplate restTemplate;
+	RemoteCallCustomerService remoteCallCustomerService;
 
 	public Long createCustomerSOS(Customer cust) {
 		String Url = custServiceUrl + cust.getCustId();
@@ -33,7 +37,9 @@ public class SalesOrderCustomerServiceImpl {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Customer> entity = new HttpEntity<Customer>(headers);
 		// Customer Service Call
-		Customer customer = restTemplate.exchange(Url, HttpMethod.GET, entity, Customer.class).getBody();
+		//Customer customer = restTemplate.exchange(Url, HttpMethod.GET, entity, Customer.class).getBody();
+		// added feign client
+		Customer customer = remoteCallCustomerService.getCustomerById(cust.getCustId());
 		CustomerSOS customerSOS = new CustomerSOS(customer.getCustId(), customer.getFirstName(), customer.getLastName(),
 				customer.getEmailId());
 		CustomerSOS customerSOSStatus = getSalesOrderCustomerRepository().saveAndFlush(customerSOS);
